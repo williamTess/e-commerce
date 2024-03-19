@@ -17,6 +17,7 @@ type HeaderProps = {
 
 export const HeaderComponent = ({ header }: HeaderProps) => {
   const pathname = usePathname()
+
   return (
     <nav
       className={[classes.header, noHeaderFooterUrls.includes(pathname) && classes.hide]

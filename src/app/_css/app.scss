@@ -48,7 +48,7 @@ body {
   font-family: var(--font-jost);
   margin: 0;
   padding: 0;
-  color: var(--color-dark-500);
+  color: var(--theme-text);
 
   display: flex;
   flex-flow: column;
@@ -59,12 +59,12 @@ body {
 }
 
 ::selection {
-  background: var(--color-dark-500);
+  background: var(--theme-success-500);
   color: var(--color-base-800);
 }
 
 ::-moz-selection {
-  background: var(--color-dark-50);
+  background: var(--theme-success-500);
   color: var(--color-base-800);
 }
 
@@ -110,7 +110,7 @@ ol {
 }
 
 a {
-  color: var(--color-dark-500);
+  color: currentColor;
 
   &:focus {
     opacity: .8;
