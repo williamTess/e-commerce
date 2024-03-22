@@ -47,6 +47,11 @@ const Users: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'points',
+      type: 'number',
+      defaultValue: 0,
+    },
+    {
       name: 'roles',
       type: 'select',
       hasMany: true,

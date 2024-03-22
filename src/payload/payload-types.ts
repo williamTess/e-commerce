@@ -178,7 +178,8 @@ export interface Media {
 }
 export interface Category {
   id: string;
-  title?: string | null;
+  title: string;
+  media?: string | Media | null;
   parent?: (string | null) | Category;
   breadcrumbs?:
     | {
@@ -410,6 +411,7 @@ export interface Order {
 export interface User {
   id: string;
   name?: string | null;
+  points?: number | null;
   roles?: ('admin' | 'customer')[] | null;
   purchases?: (string | Product)[] | null;
   stripeCustomerID?: string | null;
