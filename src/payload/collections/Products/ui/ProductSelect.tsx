@@ -82,7 +82,7 @@ export const ProductSelect: React.FC<TextField> = props => {
             marginBottom: '1.5rem',
           }}
         >
-          <div>
+          <div style={{ marginTop: '20px' }}>
             <span
               className="label"
               style={{

@@ -1270,11 +1270,10 @@ type Product {
   id: String
   title: String
   publishedOn: DateTime
-  layout: [Product_Layout!]
   stripeProductID: String
   priceJSON: String
   enablePaywall: Boolean
-  paywall: [Product_Paywall!]
+  available: Boolean
   categories: [Category!]
   relatedProducts: [Product!]
   slug: String
@@ -1284,10 +1283,6 @@ type Product {
   createdAt: DateTime
   _status: Product__status
 }
-
-union Product_Layout = Cta | Content | MediaBlock | Archive
-
-union Product_Paywall = Cta | Content | MediaBlock | Archive
 
 type Product_Meta {
   title: String
@@ -3601,6 +3596,7 @@ input Product_where {
   stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
   enablePaywall: Product_enablePaywall_operator
+  available: Product_available_operator
   categories: Product_categories_operator
   relatedProducts: Product_relatedProducts_operator
   slug: Product_slug_operator
@@ -3657,6 +3653,12 @@ input Product_priceJSON_operator {
 }
 
 input Product_enablePaywall_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input Product_available_operator {
   equals: Boolean
   not_equals: Boolean
   exists: Boolean
@@ -3775,6 +3777,7 @@ input Product_where_and {
   stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
   enablePaywall: Product_enablePaywall_operator
+  available: Product_available_operator
   categories: Product_categories_operator
   relatedProducts: Product_relatedProducts_operator
   slug: Product_slug_operator
@@ -3796,6 +3799,7 @@ input Product_where_or {
   stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
   enablePaywall: Product_enablePaywall_operator
+  available: Product_available_operator
   categories: Product_categories_operator
   relatedProducts: Product_relatedProducts_operator
   slug: Product_slug_operator
@@ -3823,11 +3827,10 @@ type productsDocAccess {
 type ProductsDocAccessFields {
   title: ProductsDocAccessFields_title
   publishedOn: ProductsDocAccessFields_publishedOn
-  layout: ProductsDocAccessFields_layout
   stripeProductID: ProductsDocAccessFields_stripeProductID
   priceJSON: ProductsDocAccessFields_priceJSON
   enablePaywall: ProductsDocAccessFields_enablePaywall
-  paywall: ProductsDocAccessFields_paywall
+  available: ProductsDocAccessFields_available
   categories: ProductsDocAccessFields_categories
   relatedProducts: ProductsDocAccessFields_relatedProducts
   slug: ProductsDocAccessFields_slug
@@ -3881,29 +3884,6 @@ type ProductsDocAccessFields_publishedOn_Update {
 }
 
 type ProductsDocAccessFields_publishedOn_Delete {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_layout {
-  create: ProductsDocAccessFields_layout_Create
-  read: ProductsDocAccessFields_layout_Read
-  update: ProductsDocAccessFields_layout_Update
-  delete: ProductsDocAccessFields_layout_Delete
-}
-
-type ProductsDocAccessFields_layout_Create {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_layout_Read {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_layout_Update {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_layout_Delete {
   permission: Boolean!
 }
 
@@ -3976,26 +3956,26 @@ type ProductsDocAccessFields_enablePaywall_Delete {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_paywall {
-  create: ProductsDocAccessFields_paywall_Create
-  read: ProductsDocAccessFields_paywall_Read
-  update: ProductsDocAccessFields_paywall_Update
-  delete: ProductsDocAccessFields_paywall_Delete
+type ProductsDocAccessFields_available {
+  create: ProductsDocAccessFields_available_Create
+  read: ProductsDocAccessFields_available_Read
+  update: ProductsDocAccessFields_available_Update
+  delete: ProductsDocAccessFields_available_Delete
 }
 
-type ProductsDocAccessFields_paywall_Create {
+type ProductsDocAccessFields_available_Create {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_paywall_Read {
+type ProductsDocAccessFields_available_Read {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_paywall_Update {
+type ProductsDocAccessFields_available_Update {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_paywall_Delete {
+type ProductsDocAccessFields_available_Delete {
   permission: Boolean!
 }
 
@@ -4344,11 +4324,10 @@ type ProductVersion {
 type ProductVersion_Version {
   title: String
   publishedOn: DateTime
-  layout: [ProductVersion_Version_Layout!]
   stripeProductID: String
   priceJSON: String
   enablePaywall: Boolean
-  paywall: [ProductVersion_Version_Paywall!]
+  available: Boolean
   categories: [Category!]
   relatedProducts: [Product!]
   slug: String
@@ -4358,10 +4337,6 @@ type ProductVersion_Version {
   createdAt: DateTime
   _status: ProductVersion_Version__status
 }
-
-union ProductVersion_Version_Layout = Cta | Content | MediaBlock | Archive
-
-union ProductVersion_Version_Paywall = Cta | Content | MediaBlock | Archive
 
 type ProductVersion_Version_Meta {
   title: String
@@ -4557,6 +4532,7 @@ input versionsProduct_where {
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
   version__enablePaywall: versionsProduct_version__enablePaywall_operator
+  version__available: versionsProduct_version__available_operator
   version__categories: versionsProduct_version__categories_operator
   version__relatedProducts: versionsProduct_version__relatedProducts_operator
   version__slug: versionsProduct_version__slug_operator
@@ -4625,6 +4601,12 @@ input versionsProduct_version__priceJSON_operator {
 }
 
 input versionsProduct_version__enablePaywall_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input versionsProduct_version__available_operator {
   equals: Boolean
   not_equals: Boolean
   exists: Boolean
@@ -4772,6 +4754,7 @@ input versionsProduct_where_and {
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
   version__enablePaywall: versionsProduct_version__enablePaywall_operator
+  version__available: versionsProduct_version__available_operator
   version__categories: versionsProduct_version__categories_operator
   version__relatedProducts: versionsProduct_version__relatedProducts_operator
   version__slug: versionsProduct_version__slug_operator
@@ -4797,6 +4780,7 @@ input versionsProduct_where_or {
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
   version__enablePaywall: versionsProduct_version__enablePaywall_operator
+  version__available: versionsProduct_version__available_operator
   version__categories: versionsProduct_version__categories_operator
   version__relatedProducts: versionsProduct_version__relatedProducts_operator
   version__slug: versionsProduct_version__slug_operator
@@ -9272,11 +9256,10 @@ type productsAccess {
 type ProductsFields {
   title: ProductsFields_title
   publishedOn: ProductsFields_publishedOn
-  layout: ProductsFields_layout
   stripeProductID: ProductsFields_stripeProductID
   priceJSON: ProductsFields_priceJSON
   enablePaywall: ProductsFields_enablePaywall
-  paywall: ProductsFields_paywall
+  available: ProductsFields_available
   categories: ProductsFields_categories
   relatedProducts: ProductsFields_relatedProducts
   slug: ProductsFields_slug
@@ -9330,29 +9313,6 @@ type ProductsFields_publishedOn_Update {
 }
 
 type ProductsFields_publishedOn_Delete {
-  permission: Boolean!
-}
-
-type ProductsFields_layout {
-  create: ProductsFields_layout_Create
-  read: ProductsFields_layout_Read
-  update: ProductsFields_layout_Update
-  delete: ProductsFields_layout_Delete
-}
-
-type ProductsFields_layout_Create {
-  permission: Boolean!
-}
-
-type ProductsFields_layout_Read {
-  permission: Boolean!
-}
-
-type ProductsFields_layout_Update {
-  permission: Boolean!
-}
-
-type ProductsFields_layout_Delete {
   permission: Boolean!
 }
 
@@ -9425,26 +9385,26 @@ type ProductsFields_enablePaywall_Delete {
   permission: Boolean!
 }
 
-type ProductsFields_paywall {
-  create: ProductsFields_paywall_Create
-  read: ProductsFields_paywall_Read
-  update: ProductsFields_paywall_Update
-  delete: ProductsFields_paywall_Delete
+type ProductsFields_available {
+  create: ProductsFields_available_Create
+  read: ProductsFields_available_Read
+  update: ProductsFields_available_Update
+  delete: ProductsFields_available_Delete
 }
 
-type ProductsFields_paywall_Create {
+type ProductsFields_available_Create {
   permission: Boolean!
 }
 
-type ProductsFields_paywall_Read {
+type ProductsFields_available_Read {
   permission: Boolean!
 }
 
-type ProductsFields_paywall_Update {
+type ProductsFields_available_Update {
   permission: Boolean!
 }
 
-type ProductsFields_paywall_Delete {
+type ProductsFields_available_Delete {
   permission: Boolean!
 }
 
@@ -12236,11 +12196,10 @@ enum PageUpdate__status_MutationInput {
 input mutationProductInput {
   title: String!
   publishedOn: String
-  layout: JSON
   stripeProductID: String
   priceJSON: String
   enablePaywall: Boolean
-  paywall: JSON
+  available: Boolean
   categories: [String]
   relatedProducts: [String]
   slug: String
@@ -12265,11 +12224,10 @@ enum Product__status_MutationInput {
 input mutationProductUpdateInput {
   title: String
   publishedOn: String
-  layout: JSON
   stripeProductID: String
   priceJSON: String
   enablePaywall: Boolean
-  paywall: JSON
+  available: Boolean
   categories: [String]
   relatedProducts: [String]
   slug: String

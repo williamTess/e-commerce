@@ -1,13 +1,13 @@
 import type { CollectionConfig } from 'payload/types'
 
 import { admins } from '../../access/admins'
-import { Archive } from '../../blocks/ArchiveBlock'
-import { CallToAction } from '../../blocks/CallToAction'
-import { Content } from '../../blocks/Content'
-import { MediaBlock } from '../../blocks/MediaBlock'
+// import { Archive } from '../../blocks/ArchiveBlock'
+// import { CallToAction } from '../../blocks/CallToAction'
+// import { Content } from '../../blocks/Content'
+// import { MediaBlock } from '../../blocks/MediaBlock'
 import { slugField } from '../../fields/slug'
 import { populateArchiveBlock } from '../../hooks/populateArchiveBlock'
-import { checkUserPurchases } from './access/checkUserPurchases'
+// import { checkUserPurchases } from './access/checkUserPurchases'
 import { beforeProductChange } from './hooks/beforeChange'
 import { deleteProductFromCarts } from './hooks/deleteProductFromCarts'
 import { revalidateProduct } from './hooks/revalidateProduct'
@@ -66,59 +66,50 @@ const Products: CollectionConfig = {
       },
     },
     {
-      type: 'tabs',
-      tabs: [
-        {
-          label: 'Content',
-          fields: [
-            {
-              name: 'layout',
-              type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive],
-            },
-          ],
+      name: 'stripeProductID',
+      label: 'Stripe Product',
+      type: 'text',
+      admin: {
+        components: {
+          Field: ProductSelect,
         },
-        {
-          label: 'Product Details',
-          fields: [
-            {
-              name: 'stripeProductID',
-              label: 'Stripe Product',
-              type: 'text',
-              admin: {
-                components: {
-                  Field: ProductSelect,
-                },
-              },
-            },
-            {
-              name: 'priceJSON',
-              label: 'Price JSON',
-              type: 'textarea',
-              admin: {
-                readOnly: true,
-                hidden: true,
-                rows: 10,
-              },
-            },
-            {
-              name: 'enablePaywall',
-              label: 'Enable Paywall',
-              type: 'checkbox',
-            },
-            {
-              name: 'paywall',
-              label: 'Paywall',
-              type: 'blocks',
-              access: {
-                read: checkUserPurchases,
-              },
-              blocks: [CallToAction, Content, MediaBlock, Archive],
-            },
-          ],
-        },
-      ],
+      },
     },
+    {
+      name: 'priceJSON',
+      label: 'Price JSON',
+      type: 'textarea',
+      admin: {
+        readOnly: true,
+        hidden: true,
+        rows: 10,
+      },
+    },
+    {
+      name: 'enablePaywall',
+      label: 'Enable Paywall',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        readOnly: true,
+        hidden: true,
+      },
+    },
+    {
+      name: 'available',
+      label: 'Is the product in stock ?',
+      type: 'checkbox',
+    },
+    // {
+    //   name: 'paywall',
+    //   label: 'Paywall',
+    //   type: 'blocks',
+    //   access: {
+    //     read: checkUserPurchases,
+    //   },
+    //   blocks: [CallToAction, Content, MediaBlock, Archive],
+    // },
+
     {
       name: 'categories',
       type: 'relationship',

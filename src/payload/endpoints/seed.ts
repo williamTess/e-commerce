@@ -1,7 +1,5 @@
 import type { PayloadHandler } from 'payload/config'
 
-import { seed as seedScript } from '../seed'
-
 export const seed: PayloadHandler = async (req, res): Promise<void> => {
   const { user, payload } = req
 
@@ -11,7 +9,6 @@ export const seed: PayloadHandler = async (req, res): Promise<void> => {
   }
 
   try {
-    await seedScript(payload)
     res.json({ success: true })
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Unknown error'

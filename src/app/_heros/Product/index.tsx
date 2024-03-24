@@ -11,7 +11,7 @@ import classes from './index.module.scss'
 export const ProductHero: React.FC<{
   product: Product
 }> = ({ product }) => {
-  const { title, categories, meta: { image: metaImage, description } = {} } = product
+  const { title, categories, available, meta: { image: metaImage, description } = {} } = product
 
   return (
     <Gutter className={classes.productHero}>
@@ -41,7 +41,11 @@ export const ProductHero: React.FC<{
               )
             })}
           </div>
-          <p className={classes.stock}> In stock</p>
+          {available ? (
+            <p className={classes.stock}> In stock</p>
+          ) : (
+            <p className={classes.noStock}> Out stock</p>
+          )}
         </div>
 
         <Price product={product} button={false} />
@@ -51,7 +55,7 @@ export const ProductHero: React.FC<{
           <p>{description}</p>
         </div>
 
-        <AddToCartButton product={product} className={classes.addToCartButton} />
+        {available && <AddToCartButton product={product} className={classes.addToCartButton} />}
       </div>
     </Gutter>
   )

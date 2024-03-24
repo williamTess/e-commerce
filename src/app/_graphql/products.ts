@@ -20,14 +20,9 @@ export const PRODUCT = `
         title
         stripeProductID
         ${PRODUCT_CATEGORIES}
-        layout {
-          ${CALL_TO_ACTION}
-          ${CONTENT}
-          ${MEDIA_BLOCK}
-          ${ARCHIVE_BLOCK}
-        }
         priceJSON
         enablePaywall
+        available
         relatedProducts {
           id
           slug
