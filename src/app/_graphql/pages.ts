@@ -34,6 +34,8 @@ export const PAGE = `
           ${MEDIA_BLOCK}
           ${ARCHIVE_BLOCK}
         }
+        promotionDate
+        promotionContent
         ${META}
       }
     }

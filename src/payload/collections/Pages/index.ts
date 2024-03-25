@@ -65,6 +65,13 @@ export const Pages: CollectionConfig = {
       type: 'tabs',
       tabs: [
         {
+          label: 'Promotion',
+          fields: [
+            { name: 'promotionDate', type: 'date' },
+            { name: 'promotionContent', type: 'richText' },
+          ],
+        },
+        {
           label: 'Hero',
           fields: [hero],
         },

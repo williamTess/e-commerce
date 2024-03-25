@@ -36,6 +36,12 @@ export interface Page {
   id: string;
   title: string;
   publishedOn?: string | null;
+  promotionDate?: string | null;
+  promotionContent?:
+    | {
+        [k: string]: unknown;
+      }[]
+    | null;
   hero: {
     type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'customHero';
     richText: {

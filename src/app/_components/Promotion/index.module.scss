@@ -3,7 +3,7 @@
 .promotion {
   display: grid;
   grid-template-columns: 50% 1fr;
-  gap: 30px;
+  gap: 80px;
   margin-bottom: 30px;
 
   @include small-break {
@@ -27,6 +27,9 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  @include small-break {
+    display: none;
+  }
 }
 
 .dealBtn {

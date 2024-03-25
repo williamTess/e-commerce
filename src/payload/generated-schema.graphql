@@ -42,6 +42,8 @@ type Page {
   id: String
   title: String
   publishedOn: DateTime
+  promotionDate: DateTime
+  promotionContent(depth: Int): JSON
   hero: Page_Hero
   layout: [Page_Layout!]!
   slug: String
@@ -55,6 +57,11 @@ type Page {
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
 scalar DateTime
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
 
 type Page_Hero {
   type: Page_Hero_type
@@ -70,11 +77,6 @@ enum Page_Hero_type {
   lowImpact
   customHero
 }
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
 
 type Page_Hero_Links {
   link: Page_Hero_Links_Link
@@ -1658,6 +1660,8 @@ type Pages {
 input Page_where {
   title: Page_title_operator
   publishedOn: Page_publishedOn_operator
+  promotionDate: Page_promotionDate_operator
+  promotionContent: Page_promotionContent_operator
   hero__type: Page_hero__type_operator
   hero__richText: Page_hero__richText_operator
   hero__links__link__type: Page_hero__links__link__type_operator
@@ -1699,6 +1703,25 @@ input Page_publishedOn_operator {
   less_than_equal: DateTime
   less_than: DateTime
   like: DateTime
+  exists: Boolean
+}
+
+input Page_promotionDate_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Page_promotionContent_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
   exists: Boolean
 }
 
@@ -1896,6 +1919,8 @@ input Page_id_operator {
 input Page_where_and {
   title: Page_title_operator
   publishedOn: Page_publishedOn_operator
+  promotionDate: Page_promotionDate_operator
+  promotionContent: Page_promotionContent_operator
   hero__type: Page_hero__type_operator
   hero__richText: Page_hero__richText_operator
   hero__links__link__type: Page_hero__links__link__type_operator
@@ -1922,6 +1947,8 @@ input Page_where_and {
 input Page_where_or {
   title: Page_title_operator
   publishedOn: Page_publishedOn_operator
+  promotionDate: Page_promotionDate_operator
+  promotionContent: Page_promotionContent_operator
   hero__type: Page_hero__type_operator
   hero__richText: Page_hero__richText_operator
   hero__links__link__type: Page_hero__links__link__type_operator
@@ -1957,6 +1984,8 @@ type pagesDocAccess {
 type PagesDocAccessFields {
   title: PagesDocAccessFields_title
   publishedOn: PagesDocAccessFields_publishedOn
+  promotionDate: PagesDocAccessFields_promotionDate
+  promotionContent: PagesDocAccessFields_promotionContent
   hero: PagesDocAccessFields_hero
   layout: PagesDocAccessFields_layout
   slug: PagesDocAccessFields_slug
@@ -2009,6 +2038,52 @@ type PagesDocAccessFields_publishedOn_Update {
 }
 
 type PagesDocAccessFields_publishedOn_Delete {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_promotionDate {
+  create: PagesDocAccessFields_promotionDate_Create
+  read: PagesDocAccessFields_promotionDate_Read
+  update: PagesDocAccessFields_promotionDate_Update
+  delete: PagesDocAccessFields_promotionDate_Delete
+}
+
+type PagesDocAccessFields_promotionDate_Create {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_promotionDate_Read {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_promotionDate_Update {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_promotionDate_Delete {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_promotionContent {
+  create: PagesDocAccessFields_promotionContent_Create
+  read: PagesDocAccessFields_promotionContent_Read
+  update: PagesDocAccessFields_promotionContent_Update
+  delete: PagesDocAccessFields_promotionContent_Delete
+}
+
+type PagesDocAccessFields_promotionContent_Create {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_promotionContent_Read {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_promotionContent_Update {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_promotionContent_Delete {
   permission: Boolean!
 }
 
@@ -2663,6 +2738,8 @@ type PageVersion {
 type PageVersion_Version {
   title: String
   publishedOn: DateTime
+  promotionDate: DateTime
+  promotionContent(depth: Int): JSON
   hero: PageVersion_Version_Hero
   layout: [PageVersion_Version_Layout!]!
   slug: String
@@ -3241,6 +3318,8 @@ input versionsPage_where {
   parent: versionsPage_parent_operator
   version__title: versionsPage_version__title_operator
   version__publishedOn: versionsPage_version__publishedOn_operator
+  version__promotionDate: versionsPage_version__promotionDate_operator
+  version__promotionContent: versionsPage_version__promotionContent_operator
   version__hero__type: versionsPage_version__hero__type_operator
   version__hero__richText: versionsPage_version__hero__richText_operator
   version__hero__links__link__type: versionsPage_version__hero__links__link__type_operator
@@ -3294,6 +3373,25 @@ input versionsPage_version__publishedOn_operator {
   less_than_equal: DateTime
   less_than: DateTime
   like: DateTime
+  exists: Boolean
+}
+
+input versionsPage_version__promotionDate_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input versionsPage_version__promotionContent_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
   exists: Boolean
 }
 
@@ -3520,6 +3618,8 @@ input versionsPage_where_and {
   parent: versionsPage_parent_operator
   version__title: versionsPage_version__title_operator
   version__publishedOn: versionsPage_version__publishedOn_operator
+  version__promotionDate: versionsPage_version__promotionDate_operator
+  version__promotionContent: versionsPage_version__promotionContent_operator
   version__hero__type: versionsPage_version__hero__type_operator
   version__hero__richText: versionsPage_version__hero__richText_operator
   version__hero__links__link__type: versionsPage_version__hero__links__link__type_operator
@@ -3550,6 +3650,8 @@ input versionsPage_where_or {
   parent: versionsPage_parent_operator
   version__title: versionsPage_version__title_operator
   version__publishedOn: versionsPage_version__publishedOn_operator
+  version__promotionDate: versionsPage_version__promotionDate_operator
+  version__promotionContent: versionsPage_version__promotionContent_operator
   version__hero__type: versionsPage_version__hero__type_operator
   version__hero__richText: versionsPage_version__hero__richText_operator
   version__hero__links__link__type: versionsPage_version__hero__links__link__type_operator
@@ -8555,6 +8657,8 @@ type pagesAccess {
 type PagesFields {
   title: PagesFields_title
   publishedOn: PagesFields_publishedOn
+  promotionDate: PagesFields_promotionDate
+  promotionContent: PagesFields_promotionContent
   hero: PagesFields_hero
   layout: PagesFields_layout
   slug: PagesFields_slug
@@ -8607,6 +8711,52 @@ type PagesFields_publishedOn_Update {
 }
 
 type PagesFields_publishedOn_Delete {
+  permission: Boolean!
+}
+
+type PagesFields_promotionDate {
+  create: PagesFields_promotionDate_Create
+  read: PagesFields_promotionDate_Read
+  update: PagesFields_promotionDate_Update
+  delete: PagesFields_promotionDate_Delete
+}
+
+type PagesFields_promotionDate_Create {
+  permission: Boolean!
+}
+
+type PagesFields_promotionDate_Read {
+  permission: Boolean!
+}
+
+type PagesFields_promotionDate_Update {
+  permission: Boolean!
+}
+
+type PagesFields_promotionDate_Delete {
+  permission: Boolean!
+}
+
+type PagesFields_promotionContent {
+  create: PagesFields_promotionContent_Create
+  read: PagesFields_promotionContent_Read
+  update: PagesFields_promotionContent_Update
+  delete: PagesFields_promotionContent_Delete
+}
+
+type PagesFields_promotionContent_Create {
+  permission: Boolean!
+}
+
+type PagesFields_promotionContent_Read {
+  permission: Boolean!
+}
+
+type PagesFields_promotionContent_Update {
+  permission: Boolean!
+}
+
+type PagesFields_promotionContent_Delete {
   permission: Boolean!
 }
 
@@ -12060,6 +12210,8 @@ type Mutation {
 input mutationPageInput {
   title: String!
   publishedOn: String
+  promotionDate: String
+  promotionContent: JSON
   hero: mutationPage_HeroInput!
   layout: JSON
   slug: String
@@ -12128,6 +12280,8 @@ enum Page__status_MutationInput {
 input mutationPageUpdateInput {
   title: String
   publishedOn: String
+  promotionDate: String
+  promotionContent: JSON
   hero: mutationPageUpdate_HeroInput!
   layout: JSON
   slug: String

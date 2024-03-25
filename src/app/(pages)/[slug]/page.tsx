@@ -49,7 +49,7 @@ export default async function Page({ params: { slug = 'home' } }) {
     return notFound()
   }
 
-  const { hero, layout } = page
+  const { hero, layout, promotionDate, promotionContent } = page
 
   return (
     <React.Fragment>
@@ -59,7 +59,7 @@ export default async function Page({ params: { slug = 'home' } }) {
 
           <Gutter className={classes.home}>
             <Categories categories={categories} />
-            <Promotion />
+            <Promotion promotionDate={promotionDate} promotionContent={promotionContent} />
           </Gutter>
         </section>
       ) : (
