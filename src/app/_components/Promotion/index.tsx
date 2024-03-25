@@ -1,8 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
 
-import PromoImage from '../../../../media/William.png'
+// import PromoImage from '../../../../media/William.png'
 import { Button } from '../Button'
 import RichText from '../RichText'
 
@@ -72,7 +71,7 @@ export const Promotion = ({ promotionDate, promotionContent }: PromotionProps) =
         />
       </div>
 
-      <div className={classes.image} style={{ backgroundImage: `url(${PromoImage.src})` }} />
+      {/* <div className={classes.image} style={{ backgroundImage: `url(${PromoImage.src})` }} /> */}
     </section>
   )
 }
