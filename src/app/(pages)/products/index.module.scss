@@ -14,3 +14,14 @@
     gap: 48px;
   }
 }
+
+.promo {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  
+
+  @include mid-break {
+    gap: 60px;
+  }
+}

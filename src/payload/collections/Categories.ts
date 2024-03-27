@@ -15,6 +15,12 @@ const Categories: CollectionConfig = {
       required: true,
     },
     {
+      name: 'isBrand',
+      type: 'checkbox',
+      defaultValue: false,
+      label: 'Is it a brand category ?',
+    },
+    {
       name: 'media',
       type: 'upload',
       relationTo: 'media',

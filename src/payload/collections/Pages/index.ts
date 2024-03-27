@@ -65,10 +65,38 @@ export const Pages: CollectionConfig = {
       type: 'tabs',
       tabs: [
         {
+          label: 'Categories',
+          fields: [
+            {
+              name: 'categoriesCards',
+              type: 'select',
+              options: [
+                {
+                  label: 'Only normal',
+                  value: 'normal',
+                },
+                {
+                  label: 'Only brand',
+                  value: 'brand',
+                },
+                {
+                  label: 'Both',
+                  value: 'both',
+                },
+                {
+                  label: 'Mixed',
+                  value: 'mixed',
+                },
+              ],
+            },
+          ],
+        },
+        {
           label: 'Promotion',
           fields: [
             { name: 'promotionDate', type: 'date' },
             { name: 'promotionContent', type: 'richText' },
+            { name: 'promotionImage', type: 'upload', relationTo: 'media' },
           ],
         },
         {

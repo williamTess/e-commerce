@@ -13,6 +13,7 @@ export const CATEGORIES = `
       docs {
         id
         title
+        isBrand
         media {
           alt
           width

@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 
-import PromoImage from '../../../../public/assets/images/sale-30-png.webp'
+import { Media } from '../../../payload/payload-types'
 import { Button } from '../Button'
 import RichText from '../RichText'
 
@@ -12,9 +12,10 @@ type PromotionProps = {
   promotionContent: {
     [k: string]: unknown
   }[]
+  promotionImage: string | Media
 }
 
-export const Promotion = ({ promotionDate, promotionContent }: PromotionProps) => {
+export const Promotion = ({ promotionDate, promotionContent, promotionImage }: PromotionProps) => {
   const [time, setTime] = useState({
     days: 0,
     hours: 0,
@@ -50,6 +51,8 @@ export const Promotion = ({ promotionDate, promotionContent }: PromotionProps) =
 
   if (targetDate < new Date()) return null
 
+  const media = promotionImage as Media
+
   return (
     <section className={classes.promotion}>
       <div className={classes.textBox}>
@@ -71,7 +74,7 @@ export const Promotion = ({ promotionDate, promotionContent }: PromotionProps) =
         />
       </div>
 
-      <div className={classes.image} style={{ backgroundImage: `url(${PromoImage.src})` }} />
+      <div className={classes.image} style={{ backgroundImage: `url(${media.url})` }} />
     </section>
   )
 }

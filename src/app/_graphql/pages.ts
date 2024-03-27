@@ -36,6 +36,13 @@ export const PAGE = `
         }
         promotionDate
         promotionContent
+        promotionImage {
+          alt
+          width
+          height
+          url
+        }
+        categoriesCards
         ${META}
       }
     }

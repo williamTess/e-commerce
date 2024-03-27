@@ -36,12 +36,14 @@ export interface Page {
   id: string;
   title: string;
   publishedOn?: string | null;
+  categoriesCards?: ('normal' | 'brand' | 'both' | 'mixed') | null;
   promotionDate?: string | null;
   promotionContent?:
     | {
         [k: string]: unknown;
       }[]
     | null;
+  promotionImage?: string | Media | null;
   hero: {
     type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'customHero';
     richText: {
@@ -185,6 +187,7 @@ export interface Media {
 export interface Category {
   id: string;
   title: string;
+  isBrand?: boolean | null;
   media?: string | Media | null;
   parent?: (string | null) | Category;
   breadcrumbs?:

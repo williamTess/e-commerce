@@ -10,8 +10,14 @@ import { useFilter } from '../../../_providers/Filter'
 
 import classes from './index.module.scss'
 
-export const Filters = ({ categories }: { categories: Category[] }) => {
+type FilterProps = {
+  categories: Category[]
+  categoriesCards: 'normal' | 'brand' | 'both' | 'mixed'
+}
+
+export const Filters = ({ categories, categoriesCards }: FilterProps) => {
   const { categoryFilters, sort, setCategoryFilters, setSort } = useFilter()
+  const filteredCategories = getCategories(categories, categoriesCards)
 
   const handleCategories = (categoryId: string) => {
     if (categoryFilters.includes(categoryId)) {
@@ -28,9 +34,11 @@ export const Filters = ({ categories }: { categories: Category[] }) => {
   return (
     <div className={classes.filters}>
       <div>
-        <h6 className={classes.title}>Product Categories</h6>
+        <h6 className={classes.title}>
+          {categoriesCards === 'brand' ? 'Product Brands' : 'Product Categories'}
+        </h6>
         <div className={classes.categories}>
-          {categories.map(category => {
+          {filteredCategories.map(category => {
             const isSelected = categoryFilters.includes(category.id)
 
             return (
@@ -45,6 +53,29 @@ export const Filters = ({ categories }: { categories: Category[] }) => {
           })}
         </div>
         <HR className={classes.hr} />
+        {categoriesCards === 'both' && (
+          <>
+            <h6 className={classes.title}>Product Brands</h6>
+            <div className={classes.categories}>
+              {categories
+                .filter(cat => cat.isBrand)
+                .map(category => {
+                  const isSelected = categoryFilters.includes(category.id)
+
+                  return (
+                    <Checkbox
+                      key={category.id}
+                      label={category.title}
+                      value={category.id}
+                      isSelected={isSelected}
+                      onClickHandler={handleCategories}
+                    />
+                  )
+                })}
+            </div>
+            <HR className={classes.hr} />
+          </>
+        )}
         <h6 className={classes.title}>Sort By</h6>
         <div className={classes.categories}>
           <RadioButton
@@ -65,4 +96,20 @@ export const Filters = ({ categories }: { categories: Category[] }) => {
       </div>
     </div>
   )
+}
+
+const getCategories = (
+  categories: Category[],
+  categoryCards: 'normal' | 'brand' | 'both' | 'mixed',
+) => {
+  switch (categoryCards) {
+    case 'normal':
+      return categories.filter(cat => cat.isBrand === false)
+    case 'brand':
+      return categories.filter(cat => cat.isBrand === true)
+    case 'both':
+      return categories.filter(cat => cat.isBrand === false)
+    default:
+      return categories
+  }
 }
