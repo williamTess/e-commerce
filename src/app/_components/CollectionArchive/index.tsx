@@ -97,7 +97,7 @@ export const CollectionArchive: React.FC<Props> = props => {
           ...(categoryFilters && categoryFilters?.length > 0
             ? {
                 categories: {
-                  in:
+                  all:
                     typeof categoryFilters === 'string'
                       ? [categoryFilters]
                       : categoryFilters.map((cat: string) => cat).join(','),

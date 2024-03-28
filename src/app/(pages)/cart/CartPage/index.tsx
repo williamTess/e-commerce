@@ -83,6 +83,7 @@ export const CartPage: React.FC<{
 
                       return (
                         <CartItem
+                          key={title}
                           product={product}
                           title={title}
                           metaImage={metaImage}
@@ -99,11 +100,6 @@ export const CartPage: React.FC<{
               <div className={classes.summary}>
                 <div className={classes.row}>
                   <h6 className={classes.cartTotal}>Summary</h6>
-                </div>
-
-                <div className={classes.row}>
-                  <p className={classes.cartTotal}>Delivery Charge</p>
-                  <p className={classes.cartTotal}>$0</p>
                 </div>
 
                 <div className={classes.row}>

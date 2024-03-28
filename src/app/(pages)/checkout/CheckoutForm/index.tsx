@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useCallback } from 'react'
-import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
+import { AddressElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { useRouter } from 'next/navigation'
 
 import { Order } from '../../../../payload/payload-types'
@@ -12,7 +12,12 @@ import { useCart } from '../../../_providers/Cart'
 
 import classes from './index.module.scss'
 
-export const CheckoutForm: React.FC<{}> = () => {
+type FormProps = {
+  onChangeCountry: (country: string) => void
+  shippingPrice: number
+}
+
+export const CheckoutForm: React.FC<FormProps> = ({ onChangeCountry, shippingPrice }) => {
   const stripe = useStripe()
   const elements = useElements()
   const [error, setError] = React.useState<string | null>(null)
@@ -29,9 +34,9 @@ export const CheckoutForm: React.FC<{}> = () => {
         const { error: stripeError, paymentIntent } = await stripe?.confirmPayment({
           elements: elements!,
           redirect: 'if_required',
-          confirmParams: {
-            return_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/order-confirmation`,
-          },
+          // confirmParams: {
+          //   return_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/order-confirmation`,
+          // },
         })
 
         if (stripeError) {
@@ -52,7 +57,7 @@ export const CheckoutForm: React.FC<{}> = () => {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                total: cartTotal.raw,
+                total: cartTotal.raw + shippingPrice,
                 stripePaymentIntentID: paymentIntent.id,
                 items: (cart?.items || [])?.map(({ product, quantity }) => ({
                   product: typeof product === 'string' ? product : product.id,
@@ -62,6 +67,7 @@ export const CheckoutForm: React.FC<{}> = () => {
                       ? priceFromJSON(product.priceJSON, 1, true)
                       : undefined,
                 })),
+                ...paymentIntent.shipping.address,
               }),
             })
 
@@ -92,12 +98,20 @@ export const CheckoutForm: React.FC<{}> = () => {
         setIsLoading(false)
       }
     },
-    [stripe, elements, router, cart, cartTotal],
+    [stripe, elements, router, cart, cartTotal, shippingPrice],
   )
 
   return (
     <form onSubmit={handleSubmit} className={classes.form}>
       {error && <Message error={error} />}
+      <h3 className={classes.adress}>Shipping Details</h3>
+      <AddressElement
+        options={{ mode: 'shipping' }}
+        onChange={e => {
+          onChangeCountry(e.value.address.country)
+        }}
+      />
+      <h3 className={classes.payment}>Payment Details</h3>
       <PaymentElement />
       <div className={classes.actions}>
         <Button label="Back to cart" href="/cart" appearance="secondary" />

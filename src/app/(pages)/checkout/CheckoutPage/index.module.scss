@@ -31,12 +31,24 @@
   align-items: center;
 }
 
+.hr {
+  margin: 20px 0 !important;
+}
+
 .orderTotal {
+  
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  
+}
+
+.orderTotalWrapper {
   margin-top: var(--base);
   font-weight: 600;
   text-align: end;
   display: flex;
-  justify-content: space-between;
+flex-direction: column;
   padding: 24px;
   margin-bottom: 60px;
   background-color: var(--color-dark-50);

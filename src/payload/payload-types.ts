@@ -224,8 +224,8 @@ export interface Product {
 }
 export interface Order {
   id: string;
-  orderedBy?: (string | null) | User;
   stripePaymentIntentID?: string | null;
+  orderedBy?: (string | null) | User;
   total: number;
   items?:
     | {
@@ -235,6 +235,12 @@ export interface Order {
         id?: string | null;
       }[]
     | null;
+  line1?: string | null;
+  postal_code?: string | null;
+  city?: string | null;
+  country?: string | null;
+  line2?: string | null;
+  state?: string | null;
   updatedAt: string;
   createdAt: string;
 }

@@ -16,6 +16,12 @@ export const ORDER = `
       docs {
         id
         orderedBy
+        city
+        country
+        line1
+        line2
+        postal_code
+        state    
         items {
           product ${PRODUCT}
           title

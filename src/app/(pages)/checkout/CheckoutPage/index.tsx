@@ -17,6 +17,7 @@ import { CheckoutForm } from '../CheckoutForm'
 import { CheckoutItem } from '../CheckoutItem'
 
 import classes from './index.module.scss'
+import { HR } from '../../../_components/HR'
 
 const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
 const stripe = loadStripe(apiKey)
@@ -32,6 +33,7 @@ export const CheckoutPage: React.FC<{
   const router = useRouter()
   const [error, setError] = React.useState<string | null>(null)
   const [clientSecret, setClientSecret] = React.useState()
+  const [shippingPrice, setShippingPrice] = React.useState<number>(500)
   const hasMadePaymentIntent = React.useRef(false)
   const { theme } = useTheme()
 
@@ -75,6 +77,10 @@ export const CheckoutPage: React.FC<{
   }, [cart, user])
 
   if (!user || !stripe) return null
+
+  const handleSwitchCountry = (country: string) => {
+    setShippingPrice(getShippingPriceAccordingToCountry(country))
+  }
 
   return (
     <Fragment>
@@ -129,9 +135,20 @@ export const CheckoutPage: React.FC<{
               }
               return null
             })}
-            <div className={classes.orderTotal}>
-              <p>Order Total</p>
-              <p>{cartTotal.formatted}</p>
+            <div className={classes.orderTotalWrapper}>
+              <div className={classes.orderTotal}>
+                <p>Products price</p>
+                <p>{cartTotal.formatted}</p>
+              </div>
+              <div className={classes.orderTotal}>
+                <p>Shipping cost</p>
+                <p>{`$${shippingPrice / 100}.00`}</p>
+              </div>
+              <HR className={classes.hr} />
+              <div className={classes.orderTotal}>
+                <p>Order Total</p>
+                <p>{`$${(cartTotal.raw + shippingPrice) / 100}.00`}</p>
+              </div>
             </div>
           </ul>
         </div>
@@ -149,7 +166,6 @@ export const CheckoutPage: React.FC<{
       )}
       {clientSecret && (
         <Fragment>
-          <h3 className={classes.payment}>Payment Details</h3>
           {error && <p>{`Error: ${error}`}</p>}
           <Elements
             stripe={stripe}
@@ -176,10 +192,19 @@ export const CheckoutPage: React.FC<{
               },
             }}
           >
-            <CheckoutForm />
+            <CheckoutForm onChangeCountry={handleSwitchCountry} shippingPrice={shippingPrice} />
           </Elements>
         </Fragment>
       )}
     </Fragment>
   )
+}
+
+const getShippingPriceAccordingToCountry = (country: string) => {
+  switch (country) {
+    case 'FR':
+      return 500
+    default:
+      return 800
+  }
 }

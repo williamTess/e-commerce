@@ -5350,10 +5350,16 @@ input versionsProduct_where_or {
 
 type Order {
   id: String
-  orderedBy: User
   stripePaymentIntentID: String
+  orderedBy: User
   total: Float!
   items: [Order_Items!]
+  line1: String
+  postal_code: String
+  city: String
+  country: String
+  line2: String
+  state: String
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -5421,27 +5427,24 @@ type Orders {
 }
 
 input Order_where {
-  orderedBy: Order_orderedBy_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
+  orderedBy: Order_orderedBy_operator
   total: Order_total_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
   items__id: Order_items__id_operator
+  line1: Order_line1_operator
+  postal_code: Order_postal_code_operator
+  city: Order_city_operator
+  country: Order_country_operator
+  line2: Order_line2_operator
+  state: Order_state_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
   AND: [Order_where_and]
   OR: [Order_where_or]
-}
-
-input Order_orderedBy_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
 }
 
 input Order_stripePaymentIntentID_operator {
@@ -5452,6 +5455,15 @@ input Order_stripePaymentIntentID_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
+}
+
+input Order_orderedBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
   exists: Boolean
 }
 
@@ -5503,6 +5515,72 @@ input Order_items__id_operator {
   exists: Boolean
 }
 
+input Order_line1_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_postal_code_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_city_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_country_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_line2_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_state_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
 input Order_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
@@ -5537,13 +5615,19 @@ input Order_id_operator {
 }
 
 input Order_where_and {
-  orderedBy: Order_orderedBy_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
+  orderedBy: Order_orderedBy_operator
   total: Order_total_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
   items__id: Order_items__id_operator
+  line1: Order_line1_operator
+  postal_code: Order_postal_code_operator
+  city: Order_city_operator
+  country: Order_country_operator
+  line2: Order_line2_operator
+  state: Order_state_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -5552,13 +5636,19 @@ input Order_where_and {
 }
 
 input Order_where_or {
-  orderedBy: Order_orderedBy_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
+  orderedBy: Order_orderedBy_operator
   total: Order_total_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
   items__id: Order_items__id_operator
+  line1: Order_line1_operator
+  postal_code: Order_postal_code_operator
+  city: Order_city_operator
+  country: Order_country_operator
+  line2: Order_line2_operator
+  state: Order_state_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -5575,35 +5665,18 @@ type ordersDocAccess {
 }
 
 type OrdersDocAccessFields {
-  orderedBy: OrdersDocAccessFields_orderedBy
   stripePaymentIntentID: OrdersDocAccessFields_stripePaymentIntentID
+  orderedBy: OrdersDocAccessFields_orderedBy
   total: OrdersDocAccessFields_total
   items: OrdersDocAccessFields_items
+  line1: OrdersDocAccessFields_line1
+  postal_code: OrdersDocAccessFields_postal_code
+  city: OrdersDocAccessFields_city
+  country: OrdersDocAccessFields_country
+  line2: OrdersDocAccessFields_line2
+  state: OrdersDocAccessFields_state
   updatedAt: OrdersDocAccessFields_updatedAt
   createdAt: OrdersDocAccessFields_createdAt
-}
-
-type OrdersDocAccessFields_orderedBy {
-  create: OrdersDocAccessFields_orderedBy_Create
-  read: OrdersDocAccessFields_orderedBy_Read
-  update: OrdersDocAccessFields_orderedBy_Update
-  delete: OrdersDocAccessFields_orderedBy_Delete
-}
-
-type OrdersDocAccessFields_orderedBy_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_orderedBy_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_orderedBy_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_orderedBy_Delete {
-  permission: Boolean!
 }
 
 type OrdersDocAccessFields_stripePaymentIntentID {
@@ -5626,6 +5699,29 @@ type OrdersDocAccessFields_stripePaymentIntentID_Update {
 }
 
 type OrdersDocAccessFields_stripePaymentIntentID_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderedBy {
+  create: OrdersDocAccessFields_orderedBy_Create
+  read: OrdersDocAccessFields_orderedBy_Read
+  update: OrdersDocAccessFields_orderedBy_Update
+  delete: OrdersDocAccessFields_orderedBy_Delete
+}
+
+type OrdersDocAccessFields_orderedBy_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderedBy_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderedBy_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderedBy_Delete {
   permission: Boolean!
 }
 
@@ -5772,6 +5868,144 @@ type OrdersDocAccessFields_items_id_Update {
 }
 
 type OrdersDocAccessFields_items_id_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_line1 {
+  create: OrdersDocAccessFields_line1_Create
+  read: OrdersDocAccessFields_line1_Read
+  update: OrdersDocAccessFields_line1_Update
+  delete: OrdersDocAccessFields_line1_Delete
+}
+
+type OrdersDocAccessFields_line1_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_line1_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_line1_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_line1_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_postal_code {
+  create: OrdersDocAccessFields_postal_code_Create
+  read: OrdersDocAccessFields_postal_code_Read
+  update: OrdersDocAccessFields_postal_code_Update
+  delete: OrdersDocAccessFields_postal_code_Delete
+}
+
+type OrdersDocAccessFields_postal_code_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_postal_code_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_postal_code_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_postal_code_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_city {
+  create: OrdersDocAccessFields_city_Create
+  read: OrdersDocAccessFields_city_Read
+  update: OrdersDocAccessFields_city_Update
+  delete: OrdersDocAccessFields_city_Delete
+}
+
+type OrdersDocAccessFields_city_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_city_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_city_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_city_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_country {
+  create: OrdersDocAccessFields_country_Create
+  read: OrdersDocAccessFields_country_Read
+  update: OrdersDocAccessFields_country_Update
+  delete: OrdersDocAccessFields_country_Delete
+}
+
+type OrdersDocAccessFields_country_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_country_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_country_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_country_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_line2 {
+  create: OrdersDocAccessFields_line2_Create
+  read: OrdersDocAccessFields_line2_Read
+  update: OrdersDocAccessFields_line2_Update
+  delete: OrdersDocAccessFields_line2_Delete
+}
+
+type OrdersDocAccessFields_line2_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_line2_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_line2_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_line2_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_state {
+  create: OrdersDocAccessFields_state_Create
+  read: OrdersDocAccessFields_state_Read
+  update: OrdersDocAccessFields_state_Update
+  delete: OrdersDocAccessFields_state_Delete
+}
+
+type OrdersDocAccessFields_state_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_state_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_state_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_state_Delete {
   permission: Boolean!
 }
 
@@ -10428,35 +10662,18 @@ type ordersAccess {
 }
 
 type OrdersFields {
-  orderedBy: OrdersFields_orderedBy
   stripePaymentIntentID: OrdersFields_stripePaymentIntentID
+  orderedBy: OrdersFields_orderedBy
   total: OrdersFields_total
   items: OrdersFields_items
+  line1: OrdersFields_line1
+  postal_code: OrdersFields_postal_code
+  city: OrdersFields_city
+  country: OrdersFields_country
+  line2: OrdersFields_line2
+  state: OrdersFields_state
   updatedAt: OrdersFields_updatedAt
   createdAt: OrdersFields_createdAt
-}
-
-type OrdersFields_orderedBy {
-  create: OrdersFields_orderedBy_Create
-  read: OrdersFields_orderedBy_Read
-  update: OrdersFields_orderedBy_Update
-  delete: OrdersFields_orderedBy_Delete
-}
-
-type OrdersFields_orderedBy_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_orderedBy_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_orderedBy_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_orderedBy_Delete {
-  permission: Boolean!
 }
 
 type OrdersFields_stripePaymentIntentID {
@@ -10479,6 +10696,29 @@ type OrdersFields_stripePaymentIntentID_Update {
 }
 
 type OrdersFields_stripePaymentIntentID_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_orderedBy {
+  create: OrdersFields_orderedBy_Create
+  read: OrdersFields_orderedBy_Read
+  update: OrdersFields_orderedBy_Update
+  delete: OrdersFields_orderedBy_Delete
+}
+
+type OrdersFields_orderedBy_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_orderedBy_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_orderedBy_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_orderedBy_Delete {
   permission: Boolean!
 }
 
@@ -10625,6 +10865,144 @@ type OrdersFields_items_id_Update {
 }
 
 type OrdersFields_items_id_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_line1 {
+  create: OrdersFields_line1_Create
+  read: OrdersFields_line1_Read
+  update: OrdersFields_line1_Update
+  delete: OrdersFields_line1_Delete
+}
+
+type OrdersFields_line1_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_line1_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_line1_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_line1_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_postal_code {
+  create: OrdersFields_postal_code_Create
+  read: OrdersFields_postal_code_Read
+  update: OrdersFields_postal_code_Update
+  delete: OrdersFields_postal_code_Delete
+}
+
+type OrdersFields_postal_code_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_postal_code_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_postal_code_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_postal_code_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_city {
+  create: OrdersFields_city_Create
+  read: OrdersFields_city_Read
+  update: OrdersFields_city_Update
+  delete: OrdersFields_city_Delete
+}
+
+type OrdersFields_city_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_city_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_city_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_city_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_country {
+  create: OrdersFields_country_Create
+  read: OrdersFields_country_Read
+  update: OrdersFields_country_Update
+  delete: OrdersFields_country_Delete
+}
+
+type OrdersFields_country_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_country_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_country_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_country_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_line2 {
+  create: OrdersFields_line2_Create
+  read: OrdersFields_line2_Read
+  update: OrdersFields_line2_Update
+  delete: OrdersFields_line2_Delete
+}
+
+type OrdersFields_line2_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_line2_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_line2_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_line2_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_state {
+  create: OrdersFields_state_Create
+  read: OrdersFields_state_Read
+  update: OrdersFields_state_Update
+  delete: OrdersFields_state_Delete
+}
+
+type OrdersFields_state_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_state_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_state_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_state_Delete {
   permission: Boolean!
 }
 
@@ -12974,10 +13352,16 @@ enum ProductUpdate__status_MutationInput {
 }
 
 input mutationOrderInput {
-  orderedBy: String
   stripePaymentIntentID: String
+  orderedBy: String
   total: Float!
   items: [mutationOrder_ItemsInput]
+  line1: String
+  postal_code: String
+  city: String
+  country: String
+  line2: String
+  state: String
   updatedAt: String
   createdAt: String
 }
@@ -12990,10 +13374,16 @@ input mutationOrder_ItemsInput {
 }
 
 input mutationOrderUpdateInput {
-  orderedBy: String
   stripePaymentIntentID: String
+  orderedBy: String
   total: Float
   items: [mutationOrderUpdate_ItemsInput]
+  line1: String
+  postal_code: String
+  city: String
+  country: String
+  line2: String
+  state: String
   updatedAt: String
   createdAt: String
 }

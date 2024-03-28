@@ -7,5 +7,5 @@ export const HR: React.FC<{
 }> = props => {
   const { className } = props
 
-  return <hr className={[className, classes.hr].filter(Boolean).join(' ')} />
+  return <hr className={[classes.hr, className].filter(Boolean).join(' ')} />
 }
